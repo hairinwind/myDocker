@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  decm-database:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: decm-db
+    hostname: decm-db
+    command: /bin/bash ./tmp/entrypoint.sh
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=5tr0ng_P@ssw0rd
+    volumes:
+      - ./db:/tmp
+

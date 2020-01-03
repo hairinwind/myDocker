@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  db-migration-tool:
+    image: decm/db-migration-tool
+    environment:
+      - 'DB_CONN_URL=jdbc:sqlserver://decm-db:1433;databaseName=DECM'
+      - 'DB_USERNAME=sa'
+      - 'DB_PASSWORD=5tr0ng_P@ssw0rd'
+      - 'DB_VERSIONS=/db/versions'
+    volumes:
+      - "./db:/db"
+    hostname: db-migration-tool
+    container_name: db-migration-tool    

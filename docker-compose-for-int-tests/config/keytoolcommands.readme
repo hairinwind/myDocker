@@ -1,0 +1,13 @@
+#GENERATING PKCS12 keystore
+keytool -genkeypair -alias decisionengine -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 3650 -ext SAN=dns:localhost -dname "CN=*.oss.central1.com, OU=CAS, O=Central1 Credit Union, L=Vancouver, ST=British Columbia, C=CA"
+
+#Check contents of keystore
+keytool -list -v -keystore keystore.p12
+
+#GENERATING A CERT FOR CLIENTS
+keytool -export -keystore keystore.p12 -alias decisionengine -file decmclient.crt
+
+keytool -printcert  -v -file decmclient.crt
+
+#CLIENT IMPORT using keytool
+keytool -importcert -file decmclient.crt -alias decisionengine -keystore $JDK_HOME/jre/lib/security/cacerts -storepass changeit

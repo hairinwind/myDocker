@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  file-processor-aft:
+    image: decm/file-processor
+    environment:
+      - 'SOURCE_SYSTEM=aft'
+    volumes:
+      - "./config:/config"
+      - "./svc:/home/svc"
+    ports:
+      - "9082:9082"
+    hostname: file-processor-aft
+    container_name: file-processor-aft
+    
+  file-processor-bills:
+    image: decm/file-processor
+    environment:
+      - 'SOURCE_SYSTEM=bills'
+    volumes:
+      - "./config:/config"
+      - "./svc:/home/svc"
+    ports:
+      - "9083:9083"
+    hostname: file-processor-bills
+    container_name: file-processor-bills
+
+  accumulator-0:
+    image: decm/accumulator
+    environment:
+      - 'ACCUMULATOR_ID=0'
+    volumes:
+      - "./config:/config"
+      - "./svc:/home/svc"
+    ports:
+      - "9080:9080"
+    hostname: accumulator-0
+    container_name: accumulator-0
